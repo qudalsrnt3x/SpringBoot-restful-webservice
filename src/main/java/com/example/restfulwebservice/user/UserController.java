@@ -39,7 +39,15 @@ public class UserController {
         // GET /users/1 or /users/10
         @GetMapping("/users/{id}")
         public User retrieveUser(@PathVariable Long id) {
-                return userDaoService.findOne(id);
+                User user = userDaoService.findOne(id);
+
+                // 기존엔 user id가 없어도 200으로 응답받음
+                // user가 null 일 경우 예외 발생
+                if (user == null) {
+                        throw new UserNotFoundException(String.format("ID[%s] not found", id));
+                }
+
+                return user;
         }
 
 }

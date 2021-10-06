@@ -18,3 +18,15 @@ URI location = ServletUriComponentsBuilder.fromCurrentRequest()<br>
 .toUri();
 
 response header 에서 Location으로 생성됨
+
+### 예외처리 핸들링
+
+- 기존 id값이 없는 경우에도 200으로 응답받은 것을 값이 없을 경우 예외처리 해주기
+
+UserNotFoundException을 통해 예외 처리 -> 500에러와 함께 에러 원인이 클라이언트한테 다 보여짐
+
+- // id 값이 없다는 것은 리소스가 존재 x -> 4XX 로 변경<br>
+  @ResponseStatus(HttpStatus.NOT_FOUND) 
+
+
+- 예외클래스 일반화 시키기
