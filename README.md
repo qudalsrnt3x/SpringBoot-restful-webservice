@@ -37,7 +37,7 @@ UserNotFoundException을 통해 예외 처리 -> 500에러와 함께 에러 원�
 
 spring boot 2.5.x 인 경우
 dependency 추가
-```
+```xml
 <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -50,3 +50,21 @@ dependency 추가
 
 예외처리를 위해 CustomizedResponseEntityExceptionHandler에서 handleMethodArgumentNotValid
 오버라이드 해준다.
+
+###다국어처리
+
+```java
+// 국제화를 위한 빈등록
+@Bean
+public LocaleResolver localeResolver() {
+    SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+    localeResolver.setDefaultLocale(Locale.KOREA);
+    return localeResolver;
+}
+```
+```yml
+spring:
+  messages:
+    basename: messages # 기본 다국어 파일 이름을 messages로 설정 (resources에 생성)
+```
+

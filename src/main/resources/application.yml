@@ -6,3 +6,8 @@ server:
 logging:
   level:
     org.springframework: debug
+
+
+spring:
+  messages:
+    basename: messages # 기본 다국어 파일 이름을 messages로 설정 (resources에 생성)
