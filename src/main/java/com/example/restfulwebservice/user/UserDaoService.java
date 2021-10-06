@@ -1,9 +1,13 @@
 package com.example.restfulwebservice.user;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class UserDaoService {
     // 데이터를 저장할 리스트 생성
     private static List<User> users = new ArrayList<>();
