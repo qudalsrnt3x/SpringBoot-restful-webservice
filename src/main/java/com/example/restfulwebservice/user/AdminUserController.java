@@ -37,7 +37,10 @@ public class AdminUserController {
 
         // 개별 사용자 조회
         // GET /users/1 or /users/10
-        @GetMapping("/v1/users/{id}")
+//        @GetMapping("/v1/users/{id}")
+//        @GetMapping(value = "/users/{id}", params = "version=1")
+//        @GetMapping(value = "/users/{id}", headers = "X-API-VERSION=1")
+        @GetMapping(value = "/users/{id}", produces = "application/vnd.company.appv1+json")
         public MappingJacksonValue retrieveUserV1(@PathVariable Long id) {
                 User user = userDaoService.findOne(id);
 
@@ -61,7 +64,10 @@ public class AdminUserController {
 
         // 개별 사용자 조회
         // GET /users/1 or /users/10
-        @GetMapping("/v2/users/{id}")
+//        @GetMapping("/v2/users/{id}")
+//        @GetMapping(value = "/users/{id}", params = "version=2")
+//        @GetMapping(value = "/users/{id}", headers = "X-API-VERSION=2")
+        @GetMapping(value = "/users/{id}", produces = "application/vnd.company.appv2+json")
         public MappingJacksonValue retrieveUserV2(@PathVariable Long id) {
                 User user = userDaoService.findOne(id);
 

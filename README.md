@@ -123,3 +123,19 @@ public MappingJacksonValue retrieveAllUsers(){
 
 - URI를 이용한 버전관리
 - Request Parameter와 Header를 이용한 버전관리
+
+Request Param을 이용한 방법, 
+```java
+@GetMapping(value = "/users/{id}", params = "version=1")
+```
+
+Header값을 이용한 방법,
+```java
+@GetMapping(value = "/users/{id}", headers = "X-API-VERSION=1")
+```
+
+mine타입을 이용한 방법,
+```java
+@GetMapping(value = "/users/{id}", produces = "application/vnd.company.appv1+json")
+```
+header에서 Accept=application/vnd.company.appv1+json 
