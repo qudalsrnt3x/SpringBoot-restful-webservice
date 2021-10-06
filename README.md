@@ -117,4 +117,9 @@ public MappingJacksonValue retrieveAllUsers(){
         }
 ```
 
+<br>
 
+### REST API Version 관리
+
+- URI를 이용한 버전관리
+- Request Parameter와 Header를 이용한 버전관리

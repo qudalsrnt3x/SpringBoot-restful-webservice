@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor // 모든 필드를 파라미터로 받는 생성자
 //@JsonIgnoreProperties(value = {"password", "ssn"})
+@NoArgsConstructor
 @JsonFilter("UserInfo")
 public class User {
 
