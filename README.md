@@ -87,3 +87,34 @@ spring:
 ```
 
 - 디펜던시 추가 후 postman을 통해 Request-Header에 Accept=application/xml 추가
+
+<br>
+
+### 응답 데이터 제어 - Filtering
+
+- 도메인 클래스가 가지고 있는 중요한 데이터 값이 클라이언트에 노출되면 위험 -> 숨기기 위한 방법
+
+도메인클래스 각 필드에 SpringBoot에서 제공하는 `@JsonIgnore` 사용
+
+-> 클래스 블록에 일괄적으로 처리도 가능 `@JsonIgnoreProperties`
+
+---
+
+- 조금 더 개발지향적으로 코드를 작성해보자
+```java
+// 전체 사용자 목록 조회
+@GetMapping("/users")
+public MappingJacksonValue retrieveAllUsers(){
+        List<User> users=userDaoService.findAll();
+
+        SimpleBeanPropertyFilter filter=SimpleBeanPropertyFilter.filterOutAllExcept("id","name","joinDate","password");
+        FilterProvider filters=new SimpleFilterProvider().addFilter("UserInfo",filter);
+
+        MappingJacksonValue mappingJacksonValue=new MappingJacksonValue(users);
+        mappingJacksonValue.setFilters(filters);
+
+        return mappingJacksonValue;
+        }
+```
+
+

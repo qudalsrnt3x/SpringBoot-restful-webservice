@@ -16,9 +16,9 @@ public class UserDaoService {
     private static Long userCount = 3L;
 
     static { // static 초기화 블럭
-        users.add(new User(1L, "moon", new Date()));
-        users.add(new User(2L, "Alice", new Date()));
-        users.add(new User(3L, "Elena", new Date()));
+        users.add(new User(1L, "moon", new Date(), "pass1", "701010-1111111"));
+        users.add(new User(2L, "Alice", new Date(), "pass2", "701011-1111111"));
+        users.add(new User(3L, "Elena", new Date(), "pass3", "701012-1111111"));
     }
 
     // 전체 사용자 조회
