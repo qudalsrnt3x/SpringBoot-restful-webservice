@@ -30,3 +30,5 @@ UserNotFoundException을 통해 예외 처리 -> 500에러와 함께 에러 원�
 
 
 - 예외클래스 일반화 시키기
+
+예외 객체를 생성해주고 CustomizedResponseEntityExceptionHandler를 통해 해당 예외 객체를 반환해주기
