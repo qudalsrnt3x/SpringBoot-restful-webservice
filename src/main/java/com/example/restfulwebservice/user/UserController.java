@@ -1,8 +1,11 @@
 package com.example.restfulwebservice.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -19,8 +22,17 @@ public class UserController {
 
         // 유저 등록
         @PostMapping("/users")
-        public void createUser(@RequestBody User user) { // application/json 형태의 요청바디를 User에 매핑해준다.
+        public ResponseEntity<User> createUser(@RequestBody User user) { // application/json 형태의 요청바디를 User에 매핑해준다.
                 User savedUser = userDaoService.save(user);
+
+                URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(savedUser.getId())
+                        .toUri();
+
+                // response header에 Location: http://localhost:8088/users/4 으로 확인 가능
+
+                return ResponseEntity.created(location).build();
         }
 
         // 개별 사용자 조회
