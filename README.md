@@ -10,6 +10,8 @@
 
 Autowiring by type from bean name 'userController' via constructor to bean named 'userDaoService'
 
+<br>
+
 ### 응답 코드 제어
 
 URI location = ServletUriComponentsBuilder.fromCurrentRequest()<br>
@@ -18,6 +20,8 @@ URI location = ServletUriComponentsBuilder.fromCurrentRequest()<br>
 .toUri();
 
 response header 에서 Location으로 생성됨
+
+<br>
 
 ### 예외처리 핸들링
 
@@ -32,6 +36,8 @@ UserNotFoundException을 통해 예외 처리 -> 500에러와 함께 에러 원�
 - 예외클래스 일반화 시키기
 
 예외 객체를 생성해주고 CustomizedResponseEntityExceptionHandler를 통해 해당 예외 객체를 반환해주기
+
+<br>
 
 ### 유효성 체크 Validation (전처리)
 
@@ -51,6 +57,8 @@ dependency 추가
 예외처리를 위해 CustomizedResponseEntityExceptionHandler에서 handleMethodArgumentNotValid
 오버라이드 해준다.
 
+<br>
+
 ###다국어처리
 
 ```java
@@ -68,3 +76,14 @@ spring:
     basename: messages # 기본 다국어 파일 이름을 messages로 설정 (resources에 생성)
 ```
 
+<br>
+
+### 응답 데이터 형식 변환 - XML format
+```xml
+<dependency>
+  <groupId>com.fasterxml.jackson.dataformat</groupId>
+  <artifactId>jackson-dataformat-xml</artifactId>
+</dependency>
+```
+
+- 디펜던시 추가 후 postman을 통해 Request-Header에 Accept=application/xml 추가
