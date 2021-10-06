@@ -32,3 +32,21 @@ UserNotFoundException을 통해 예외 처리 -> 500에러와 함께 에러 원�
 - 예외클래스 일반화 시키기
 
 예외 객체를 생성해주고 CustomizedResponseEntityExceptionHandler를 통해 해당 예외 객체를 반환해주기
+
+### 유효성 체크 Validation (전처리)
+
+spring boot 2.5.x 인 경우
+dependency 추가
+```
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+    <version>2.5.5</version>
+</dependency>
+```
+
+- domain에 컬럼에 유효성 검사 어노테이션 붙여준다. 
+
+예외처리를 위해 CustomizedResponseEntityExceptionHandler에서 handleMethodArgumentNotValid
+오버라이드 해준다.
