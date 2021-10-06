@@ -50,4 +50,12 @@ public class UserController {
                 return user;
         }
 
+        // 기존 사용자 삭제
+        @DeleteMapping("/users/{id}")
+        public void deleteUser(@PathVariable Long id) {
+                User deleteUser = userDaoService.deleteById(id);
+
+                if(deleteUser == null)
+                        throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
 }
