@@ -58,4 +58,15 @@ public class UserController {
                 if(deleteUser == null)
                         throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
+
+        // 유저 수정
+        @PutMapping("/users/{id}")
+        public User updateUser(@PathVariable Long id, @RequestBody User user) {
+                User updateUser = userDaoService.update(id, user);
+
+                if(updateUser == null)
+                        throw new UserNotFoundException(String.format("ID[%s] not found", id));
+
+                return updateUser;
+        }
 }

@@ -65,4 +65,27 @@ public class UserDaoService {
 
         return null;
     }
+
+    // 유저 수정
+    public User update(Long id, User user) {
+        /*// 유저 아이디 조회
+        for (User findUser : users) {
+
+            if (findUser.getId() == id) {
+                findUser.setName(user.getName());
+                return findUser;
+            }
+        }
+
+        return null;*/
+
+        User findUser = findOne(id);
+
+        if(findUser == null)
+            return null;
+
+        findUser.setName(user.getName());
+
+        return findUser;
+    }
 }
