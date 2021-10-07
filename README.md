@@ -14,10 +14,12 @@ Autowiring by type from bean name 'userController' via constructor to bean named
 
 ### 응답 코드 제어
 
-URI location = ServletUriComponentsBuilder.fromCurrentRequest()<br>
-.path("/{id}")<br>
-.buildAndExpand(savedUser.getId())<br>
+```java
+URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+.path("/{id}")
+.buildAndExpand(savedUser.getId())
 .toUri();
+```
 
 response header 에서 Location으로 생성됨
 
