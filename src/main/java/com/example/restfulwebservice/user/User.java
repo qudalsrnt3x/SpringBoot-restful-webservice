@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor // 모든 필드를 파라미터로 받는 생성자
 //@JsonIgnoreProperties(value = {"password", "ssn"})
 @NoArgsConstructor
-@JsonFilter("UserInfo")
+//@JsonFilter("UserInfo")
 public class User {
 
     private Long id;

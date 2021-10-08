@@ -139,3 +139,101 @@ mine타입을 이용한 방법,
 @GetMapping(value = "/users/{id}", produces = "application/vnd.company.appv1+json")
 ```
 header에서 Accept=application/vnd.company.appv1+json 
+
+<br>
+
+### HATEOAS 적용
+> 현재 리소스와 연관된(호출 가능한) 자원 상태 정보를 제공
+
+- Hypermedia As The Engine Of Application State의 약자로, 기본적인 아이디어는<br>
+하이퍼미디어를 애플리케이션의 상태를 관리하기 위한 메커니즘으로 사용한다는 것입니다.
+
+![img.png](img.png)
+
+- pom.xml 추가
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-hateoas</artifactId>
+</dependency>
+```
+
+- spring-boot 2.1 이하 버전과 이후 버전이 다르게 구현됨 (주의)
+
+Resource<br>
+ControllerLinkBuilder
+
+Resource  -> EntityModel<br>
+ControllerLinkBuilder   -> WebMvcLinkBuilder
+
+```java
+// 2.1 이후 버전
+import org.springframework.web.bind.annotation.PathVariable;
+
+@GetMapping("/users/{id}")
+public EntityModel<User> retrieveUser(@PathVariable Long id){
+        ...
+        // HATEOAS
+        // "all-users", SERVER_PATH + "/users"
+        // retieveAllUsers
+        EntityModel entityModel = EntityModel.of(user);
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+        entityModel.add(linkTo.withRel("all-users"));
+}
+```
+
+<br>
+
+### REST API Documentation을 위한 Swagger 사용
+
+- pom.xml 추가
+
+```xml
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
+<dependency>
+  <groupId>io.springfox</groupId>
+  <artifactId>springfox-boot-starter</artifactId>
+  <version>3.0.0</version>
+</dependency>
+
+<!--<dependency>
+  <groupId>io.springfox</groupId>
+  <artifactId>springfox-swagger2</artifactId>
+  <version>2.9.2</version>
+</dependency>
+<dependency>
+<groupId>io.springfox</groupId>
+<artifactId>springfox-swagger-ui</artifactId>
+<version>2.9.2</version>
+</dependency>-->
+ 
+```
+
+> 기존 두 개로 의존성 추가했을 경우 HATEOAS와 버전 충돌 오류가 있음. 그래서 starter로 dependency추가
+
+- 구현
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@Configuration
+@EnableSwagger2
+//EnableSwagger
+public class SwaggerConfig {
+
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2);
+  }
+  // Swagger 2
+  // ALI the paths
+  // All the apis
+}
+```
+
+> http://localhost:8088/v2/api-docs
+> http://localhost:8088/swagger-ui/
