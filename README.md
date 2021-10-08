@@ -274,12 +274,13 @@ public Docket api(){
 <br>
 
 ### Actuator를 이용한 api 모니터링
+
 ```xml
 <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-actuator</artifactId>
-  <version>2.5.5</version>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+    <version>2.5.5</version>
 </dependency>
 
 ```
@@ -287,6 +288,7 @@ public Docket api(){
 > localhost:8088/actuator
 
 #### 더 많은 정보를 확인하기
+
 ```yaml
 management:
   endpoints:
@@ -300,40 +302,105 @@ management:
 ### HAL Browser 사용하기
 
 - pom.xml 추가
+
 > Hypertext Application Language
-> <br> "HAL is a <span style="color: red;">simple format</span> taht gives a 
+> <br> "HAL is a <span style="color: red;">simple format</span> taht gives a
 > consistent and easy way to hyperlink between resources in your API."
 
 ```xml
 //spring-Boot 2.5 버전에서는 hal-explorer로 사용
 <dependency>
-  <groupId>org.springframework.data</groupId>
-  <artifactId>spring-data-rest-hal-explorer</artifactId>
-  <version>3.5.1</version>
+    <groupId>org.springframework.data</groupId>
+    <artifactId>spring-data-rest-hal-explorer</artifactId>
+    <version>3.5.1</version>
 </dependency>
 
-<!--
-&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.data/spring-data-rest-hal-browser &ndash;&gt;
-<dependency>
-  <groupId>org.springframework.data</groupId>
-  <artifactId>spring-data-rest-hal-browser</artifactId>
-</dependency>
--->
+        <!--
+        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.data/spring-data-rest-hal-browser &ndash;&gt;
+        <dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-rest-hal-browser</artifactId>
+        </dependency>
+        -->
 
 ```
 
-- 장점
-HATEOAS 를 사용하기 위해 필요한 리소스를 개별적으로 작업해야했는데 HAL BROWSER를 통해
-손쉽게 사용할 수 있음
+- 장점 HATEOAS 를 사용하기 위해 필요한 리소스를 개별적으로 작업해야했는데 HAL BROWSER를 통해 손쉽게 사용할 수 있음
 
 <br>
 
 ### Spring Security
 
 - pom.xml 추가
+
 ```xml
+
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-security</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
 </dependency> 
 ```
+
+<br>
+
+### JPA 연습
+
+> Java Persistence API -> ORM 사용
+
+#### 개요
+
+- JPA
+
+자바 ORM 기술에 대한 API 표준 명세 (인터페이스)<br>
+EntityManager를 통해 CRUD 처리
+
+- Hibernate
+
+JPA의 구현체, 인터페이스를 직접 구현한 라이브러리<br>
+생산성, 유지보수, 비종속성
+
+- Spring Data JPA
+
+Spring Module<br>
+JPA를 추상화한 Repository 인터페이스 사용
+
+- pom.xml 추가
+
+```xml
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <scope>runtime</scope>
+</dependency>
+```
+
+- application.yml 수정
+```yaml
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+  jpa:
+    show-sql: true
+    
+  h2:
+    console:
+      enabled: true
+```
+
+스프링부트에서 내부적으로 h2콘솔의 데이터소스 정보를 자동으로 생성해주지만
+최신 h2버전에서는 데이터베이스를 자동으로 생성하는 것을 방지하도록 설정되어있다.
+
+- DEBUG 모드로 실행 시 콘솔에서 해당 내용 확인 가능
+```
+H2ConsoleAutoConfiguration matched:
+     - @ConditionalOnClass found required class 'org.h2.server.web.WebServlet' (OnClassCondition)
+     - found 'session' scope (OnWebApplicationCondition)
+     - @ConditionalOnProperty (spring.h2.console.enabled=true) matched (OnPropertyCondition)
+```
+

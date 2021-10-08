@@ -17,10 +17,20 @@ spring:
       enabled: true
 
   # security
-  security:
-    user:
-      name: username
-      password: passwOrd
+  # security:
+  #  user:
+  #    name: username
+  #    password: passwOrd
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+
+  jpa:
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
 
 management:
   endpoints:
