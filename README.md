@@ -325,3 +325,15 @@ management:
 - 장점
 HATEOAS 를 사용하기 위해 필요한 리소스를 개별적으로 작업해야했는데 HAL BROWSER를 통해
 손쉽게 사용할 수 있음
+
+<br>
+
+### Spring Security
+
+- pom.xml 추가
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency> 
+```
