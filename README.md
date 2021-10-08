@@ -294,3 +294,34 @@ management:
       exposure:
         include: '*'
 ```
+
+<br>
+
+### HAL Browser 사용하기
+
+- pom.xml 추가
+> Hypertext Application Language
+> <br> "HAL is a <span style="color: red;">simple format</span> taht gives a 
+> consistent and easy way to hyperlink between resources in your API."
+
+```xml
+//spring-Boot 2.5 버전에서는 hal-explorer로 사용
+<dependency>
+  <groupId>org.springframework.data</groupId>
+  <artifactId>spring-data-rest-hal-explorer</artifactId>
+  <version>3.5.1</version>
+</dependency>
+
+<!--
+&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.data/spring-data-rest-hal-browser &ndash;&gt;
+<dependency>
+  <groupId>org.springframework.data</groupId>
+  <artifactId>spring-data-rest-hal-browser</artifactId>
+</dependency>
+-->
+
+```
+
+- 장점
+HATEOAS 를 사용하기 위해 필요한 리소스를 개별적으로 작업해야했는데 HAL BROWSER를 통해
+손쉽게 사용할 수 있음
