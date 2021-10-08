@@ -417,3 +417,11 @@ defer-datasource-initialization: true
 #### Repository, Controller 생성
 
 > CRUD 작성
+
+<br>
+
+### Post Entity 추가
+
+#### 유저(필수)와 게시글(옵션)의 관계
+1:N
+

@@ -20,6 +20,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class UserJpaController {
 
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
 
     // localhost:8088/jpa/users
     @GetMapping("/users")
@@ -66,5 +67,36 @@ public class UserJpaController {
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
+    }
+
+    // 전체 게시물 목록 가져오기
+    // /jpa/users/1/posts
+    @GetMapping("/users/{id}/posts")
+    public List<Post> retrieveAllPosts(@PathVariable Long id) {
+        User findUser = userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException(String.format("ID[%s] not found", id))
+        );
+
+        return findUser.getPosts();
+    }
+
+    // 게시물 추가하기
+    @PostMapping("/users/{id}/posts")
+    public ResponseEntity<Post> createPost(@PathVariable Long id, @RequestBody Post post) {
+
+        User savedUser = userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException(String.format("ID[%s] not found", id))
+        );
+
+        post.setUser(savedUser);
+
+        Post savedPost = postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedPost.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 }

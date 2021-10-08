@@ -9,13 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor // 모든 필드를 파라미터로 받는 생성자
@@ -45,4 +43,16 @@ public class User {
 //    @JsonIgnore
     @ApiModelProperty(notes = "사용자 주민번호를 입력해 주세요.")
     private String ssn;
+
+    @OneToMany(mappedBy = "user") // user테이블의 데이터와 매핑
+    private List<Post> posts;
+
+    // Post 컬럼이 없는 생성자 생성
+    public User(Long id, String name, Date joinDate, String password, String ssn) {
+        this.id = id;
+        this.name = name;
+        this.joinDate = joinDate;
+        this.password = password;
+        this.ssn = ssn;
+    }
 }
