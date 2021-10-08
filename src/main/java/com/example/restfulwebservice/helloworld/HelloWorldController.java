@@ -2,6 +2,8 @@ package com.example.restfulwebservice.helloworld;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -38,5 +40,13 @@ public class HelloWorldController {
     @GetMapping("/hello-world-internationalized")
     public String helloWorldInternationalized(@RequestHeader(name = "Accept-Language", required = false) Locale locale) { // 헤더값 없으면 디폴트(한국어)
         return messageSource.getMessage("greeting.message", null, locale);
+    }
+
+    // ResponseEntity 연습
+    @GetMapping("/hello-responseEntity")
+    public ResponseEntity<ApiResponseMessage> helloResponseEntity() {
+        ApiResponseMessage message = new ApiResponseMessage("Success", "Hello ResponseEntity", "", "");
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
