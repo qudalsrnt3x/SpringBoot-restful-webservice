@@ -404,3 +404,16 @@ H2ConsoleAutoConfiguration matched:
      - @ConditionalOnProperty (spring.h2.console.enabled=true) matched (OnPropertyCondition)
 ```
 
+- data.sql 생성 시 User 테이블 없다고 뜰 때
+
+스프링부트 버전이 올라가면서 하이버네이트와 .sql간의 순번이 바뀜
+.sql 우선순위가 높아져서 테이블이 만들어지기 전에 insert하려고해서 에러뜸
+
+해결
+```yaml
+defer-datasource-initialization: true
+```
+
+#### Repository, Controller 생성
+
+> CRUD 작성
